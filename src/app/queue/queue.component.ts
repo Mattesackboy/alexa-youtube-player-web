@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment' //https://blog.angularindepth.com/becoming-an-angular-environmentalist-45a48f7c20d8
 
 @Component({
   selector: 'app-queue',
@@ -11,7 +12,7 @@ export class QueueComponent implements OnInit {
   private queueSongs = []
   private enqueuedSong: any
   private http: HttpClient
-  private readonly baseServerUrl: String = this.getApiIP()
+  private readonly baseServerUrl: String = environment.apiBaseUrl
 
   constructor(http: HttpClient) {
     this.http = http
@@ -26,13 +27,6 @@ export class QueueComponent implements OnInit {
 
   getCurrentQueue() {
     return this.http.post(`${this.baseServerUrl}/api/get-queue`, {})
-  }
-  
-  getApiIP() {
-    const hostname = window.location.hostname
-    return hostname === "localhost"
-      || hostname === "127.0.0.1"
-      || hostname.startsWith("192.") ? "http://192.168.88.164:3288" : "http://2.37.172.53:3288"
   }
 
   ngOnInit() {

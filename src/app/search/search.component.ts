@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'
 import { Router } from "@angular/router"
+import { environment } from '../../environments/environment' //https://blog.angularindepth.com/becoming-an-angular-environmentalist-45a48f7c20d8
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
   private headerText: String = ""
   youtubeResults: Array<Object> = []
   private readonly http: HttpClient
-  private readonly baseServerUrl = this.getApiIP()
+  private readonly baseServerUrl = environment.apiBaseUrl
 
   constructor(private formBuilder: FormBuilder, http: HttpClient, private router: Router) {
     this.searchForm = formBuilder.group({
@@ -71,13 +72,6 @@ export class SearchComponent implements OnInit {
     }).toPromise().then(() => {
       this.router.navigate(['/'])
     })
-  }
-
-  getApiIP() {
-    const hostname = window.location.hostname 
-    return hostname === "localhost" 
-      || hostname === "127.0.0.1" 
-      || hostname.startsWith("192.") ? "http://192.168.88.164:3288" : "http://2.37.172.53:3288"
   }
   
   getSongs(query: String) {
