@@ -1,0 +1,50 @@
+<h1 [className]="success ? 'centered loading' : 'centered error'">
+  {{ headerText }}
+</h1>
+
+<form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <label>
+    Search on Youtube (or valid URL for adding to queue):
+    <input id="search-query" type="text" formControlName="query" placeholder="Max song duration is 6min">
+    <!--<div *ngIf="submitted && searchForm.controls.query.errors" class="error">
+      <div *ngIf="searchForm.controls.query.errors.required">You must enter some text.</div>
+    </div>-->
+  </label>
+  <input type="submit" value="Search">
+</form>
+
+<div class="cards-list">
+  <form class="card 1" *ngFor="let song of youtubeResults" [formGroup]="queueForm" (click)="addSongToQueue(song.url)">
+    <div class="card_image"> <img src="{{ song.thumbnail }}" /> </div>
+    <div class="card_title title-white">
+      <p>{{ song.title.substring(0, 54) + (song.title.length >= 54 ? " ..." : "") }}</p>
+    </div>
+    <input type="hidden" name="songUrl" formControlName="songUrl" value="{{ song.url }}">
+  </form>
+</div>
+
+<!--<div class="cards-list"> //In questo modo inviavo una richiesta diretta all'API e quindi mi redirectava all'ip dell'API
+  <form class="card 1" method="POST" action="http://192.168.88.164:3288/api/add-song-to-queue" *ngFor="let song of youtubeResults" [formGroup]="queueForm" onClick="javascript:this.submit();">
+    <div class="card_image"> <img src="{{ song.thumbnail }}" /> </div>
+    <div class="card_title title-white">
+      <p>{{ song.title.substring(0, 54) + (song.title.length >= 54 ? " ..." : "") }}</p>
+    </div>
+    <input type="hidden" name="songUrl" formControlName="songUrl" value="{{ song.url }}">
+  </form>
+</div>-->
+
+<!--<form class="card-list" [formGroup]="queueForm" (ngSubmit)="addToQueue()">
+  <button type="submit" class="card 1" *ngFor="let song of youtubeResults">
+    <div class="card_image"> <img src="{{ song.thumbnail }}" /> </div>
+    <div class="card_title title-white">
+      <p>{{ song.title.substring(0, 54) + (song.title.length >= 54 ? " ..." : "") }}</p>
+    </div>
+    <input type="hidden" formControlName="songUrl" value="{{ song.url }}">
+  </button>
+</form>-->
+
+
+<!--<div *ngIf="submitted && !searchForm.controls.query.errors" class="results">
+  <strong>Query:</strong>
+  <span>{{ searchForm.controls.query.value }}</span>
+</div>-->

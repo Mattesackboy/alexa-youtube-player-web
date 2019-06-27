@@ -1,0 +1,26 @@
+<div *ngIf="enqueuedSong">
+  <div class="header">
+    <h1>Prossima Canzone</h1>
+  </div>
+
+  <div class="card 1">
+    <div class="card_image"> <img src="{{ enqueuedSong.thumbnail }}" /> </div>
+    <div class="card_title title-white">
+      <p>{{ enqueuedSong.title.substring(0, 54) + (enqueuedSong.title.length >= 54 ? " ..." : "") }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <h1>Coda</h1>
+  <h2>Totale coda: {{ queueSongs.length || 0 }}</h2>
+</div>
+
+<div class="cards-list">
+  <div class="card 1" *ngFor="let song of queueSongs">
+    <div class="card_image"> <img src="{{ song.thumbnail }}" /> </div>
+    <div class="card_title title-white">
+      <p>{{ song.title.substring(0, 54) + (song.title.length >= 54 ? " ..." : "") }}</p>
+    </div>
+  </div>
+</div>
